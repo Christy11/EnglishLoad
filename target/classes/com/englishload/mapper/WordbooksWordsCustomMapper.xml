@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.englishload.mapper.WordbooksWordsCustomMapper" >
+
+<resultMap id="BaseResultMap" type="com.englishload.po.WordbooksWords" >
+    <id column="wordbooks_words_id" property="wordbooksWordsId" jdbcType="INTEGER" />
+    <result column="wbook_id" property="wbookId" jdbcType="INTEGER" />
+    <result column="word_id" property="wordId" jdbcType="INTEGER" />
+  </resultMap>
+<resultMap id="BaseResultMap2" type="com.englishload.po.WordsCustom" >
+    <id column="word_id" property="wordId" jdbcType="INTEGER" />
+    <result column="wordname" property="wordname" jdbcType="VARCHAR" />
+    <result column="explanation" property="explanation" jdbcType="VARCHAR" />
+    <result column="audio" property="audio" jdbcType="VARCHAR" />
+    <result column="properity" property="properity" jdbcType="VARCHAR" />
+    <result column="phrase" property="phrase" jdbcType="VARCHAR" />
+</resultMap>  
+  <delete id="deleteWordbooksWord" parameterType="com.englishload.po.WordbooksWordsCustom">
+  		delete from wordbooks_words where wbook_id=#{wbookId} and word_id=#{wordId}
+  	</delete>
+  	<delete id="deleteWordbooksAllWords" parameterType="java.lang.Integer">
+  		delete from wordbooks_words where wbook_id=#{value}
+  	</delete>
+  	<insert id="insertWordbooksWords" parameterType="com.englishload.po.WordbooksWordsCustom">
+  	  <selectKey keyProperty="wordbooksWordsId" order="AFTER" resultType="java.lang.Integer">
+		select LAST_INSERT_ID() 
+	  </selectKey>
+  	    INSERT INTO wordbooks_words (wbook_id,word_id) SELECT #{wbookId},#{wordId} FROM dual 
+  	    WHERE not exists (select wordbooks_words.wbook_id,wordbooks_words.word_id from wordbooks_words 
+  	    where wordbooks_words.wbook_id  = #{wbookId} and wordbooks_words.word_id=#{wordId})
+  	</insert>
+  	<select id="findWordbooksWords" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
+  	    select words.* from wordbooks_words,words where wordbooks_words.word_id=words.word_id and wbook_id=#{wbookId}
+  	</select>
+  	
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.englishload.mapper.WordbooksCustomMapper" >
+ 
+<resultMap id="BaseResultMap" type="com.englishload.po.WordbooksCustom" >
+    <id column="wbook_id" property="wbookId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="wname" property="wname" jdbcType="VARCHAR" />
+    <result column="wexpress" property="wexpress" jdbcType="VARCHAR" />
+    <result column="wdate" property="wdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  	<select id="findWordbooks" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  		select * from wordbooks where user_id=#{value}
+  	</select>
+  	<insert id="createWordbooks" parameterType="com.englishload.po.WordbooksCustom">
+  	
+  	<selectKey keyProperty="wbookId" order="AFTER" resultType="java.lang.Integer">
+		select LAST_INSERT_ID() 
+	</selectKey>
+  	
+  		insert into wordbooks(wordbooks.user_id,wordbooks.wname,wordbooks.wexpress,wordbooks.wdate) values (#{userId},#{wname},#{wexpress},current_timestamp())
+  	</insert>
+  	<delete id="deleteWordbooksById" parameterType="java.lang.Integer">
+  		delete from wordbooks where wbook_id=#{wbookId};
+  	</delete>
+  	<delete id="deleteUserAllWordbooks" parameterType="java.lang.Integer">
+  		delete from wordbooks where user_id=#{value};
+  	</delete>
+  	<select id="findWordbooksById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	    select * from wordbooks where wbook_id=#{wbookId};
+  	</select>
+  	
+</mapper>

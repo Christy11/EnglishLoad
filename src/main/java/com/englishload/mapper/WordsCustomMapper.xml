@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.englishload.mapper.WordsCustomMapper" >
+
+   <!-- 定义随机抽取单词的sql片段 -->
+<!--    <sql id="random_generate_words">
+   		<if test="WordsCustom!=null">
+   			<if test="WordsCustom.wordname!=null and WordsCustom.wordname!=''">
+   				SELECT * FROM Words ORDER BY rand() limit 1;
+   			</if>
+   		</if>
+   </sql> -->
+<resultMap id="BaseResultMap" type="com.englishload.po.WordsCustom" >
+    <id column="word_id" property="wordId" jdbcType="INTEGER" />
+    <result column="wordname" property="wordname" jdbcType="VARCHAR" />
+    <result column="explanation" property="explanation" jdbcType="VARCHAR" />
+    <result column="audio" property="audio" jdbcType="VARCHAR" />
+    <result column="properity" property="properity" jdbcType="VARCHAR" />
+    <result column="phrase" property="phrase" jdbcType="VARCHAR" />
+  </resultMap>
+  	<select id="randomWord" resultMap="BaseResultMap">
+  		SELECT * FROM Words ORDER BY rand() limit 1
+  	</select>
+  	<select id="randomWordsList" resultMap="BaseResultMap">
+  		SELECT * FROM Words ORDER BY rand()
+  	</select>
+  	<select id="randomWordsListByGrade" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  		SELECT words.* from words, gradecategory_words where words.word_id=gradecategory_words.word_id and grade_id=#{gradeId} order by words.word_id ASC
+  	</select>
+  	
+</mapper>

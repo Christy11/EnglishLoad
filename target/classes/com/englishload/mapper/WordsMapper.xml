@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.englishload.mapper.WordsMapper" >
+  <resultMap id="BaseResultMap" type="com.englishload.po.Words" >
+    <id column="word_id" property="wordId" jdbcType="INTEGER" />
+    <result column="wordname" property="wordname" jdbcType="VARCHAR" />
+    <result column="explanation" property="explanation" jdbcType="VARCHAR" />
+    <result column="audio" property="audio" jdbcType="VARCHAR" />
+    <result column="properity" property="properity" jdbcType="VARCHAR" />
+    <result column="phrase" property="phrase" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.englishload.po.Words" extends="BaseResultMap" >
+    <result column="example" property="example" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    word_id, wordname, explanation, audio, properity, phrase
+  </sql>
+  <sql id="Blob_Column_List" >
+    example
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.englishload.po.WordsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from words
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.englishload.po.WordsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from words
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from words
+    where word_id = #{wordId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from words
+    where word_id = #{wordId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.englishload.po.WordsExample" >
+    delete from words
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.englishload.po.Words" >
+    insert into words (word_id, wordname, explanation, 
+      audio, properity, phrase, 
+      example)
+    values (#{wordId,jdbcType=INTEGER}, #{wordname,jdbcType=VARCHAR}, #{explanation,jdbcType=VARCHAR}, 
+      #{audio,jdbcType=VARCHAR}, #{properity,jdbcType=VARCHAR}, #{phrase,jdbcType=VARCHAR}, 
+      #{example,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.englishload.po.Words" >
+    insert into words
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wordId != null" >
+        word_id,
+      </if>
+      <if test="wordname != null" >
+        wordname,
+      </if>
+      <if test="explanation != null" >
+        explanation,
+      </if>
+      <if test="audio != null" >
+        audio,
+      </if>
+      <if test="properity != null" >
+        properity,
+      </if>
+      <if test="phrase != null" >
+        phrase,
+      </if>
+      <if test="example != null" >
+        example,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wordId != null" >
+        #{wordId,jdbcType=INTEGER},
+      </if>
+      <if test="wordname != null" >
+        #{wordname,jdbcType=VARCHAR},
+      </if>
+      <if test="explanation != null" >
+        #{explanation,jdbcType=VARCHAR},
+      </if>
+      <if test="audio != null" >
+        #{audio,jdbcType=VARCHAR},
+      </if>
+      <if test="properity != null" >
+        #{properity,jdbcType=VARCHAR},
+      </if>
+      <if test="phrase != null" >
+        #{phrase,jdbcType=VARCHAR},
+      </if>
+      <if test="example != null" >
+        #{example,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.englishload.po.WordsExample" resultType="java.lang.Integer" >
+    select count(*) from words
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update words
+    <set >
+      <if test="record.wordId != null" >
+        word_id = #{record.wordId,jdbcType=INTEGER},
+      </if>
+      <if test="record.wordname != null" >
+        wordname = #{record.wordname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.explanation != null" >
+        explanation = #{record.explanation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.audio != null" >
+        audio = #{record.audio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.properity != null" >
+        properity = #{record.properity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phrase != null" >
+        phrase = #{record.phrase,jdbcType=VARCHAR},
+      </if>
+      <if test="record.example != null" >
+        example = #{record.example,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update words
+    set word_id = #{record.wordId,jdbcType=INTEGER},
+      wordname = #{record.wordname,jdbcType=VARCHAR},
+      explanation = #{record.explanation,jdbcType=VARCHAR},
+      audio = #{record.audio,jdbcType=VARCHAR},
+      properity = #{record.properity,jdbcType=VARCHAR},
+      phrase = #{record.phrase,jdbcType=VARCHAR},
+      example = #{record.example,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update words
+    set word_id = #{record.wordId,jdbcType=INTEGER},
+      wordname = #{record.wordname,jdbcType=VARCHAR},
+      explanation = #{record.explanation,jdbcType=VARCHAR},
+      audio = #{record.audio,jdbcType=VARCHAR},
+      properity = #{record.properity,jdbcType=VARCHAR},
+      phrase = #{record.phrase,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.englishload.po.Words" >
+    update words
+    <set >
+      <if test="wordname != null" >
+        wordname = #{wordname,jdbcType=VARCHAR},
+      </if>
+      <if test="explanation != null" >
+        explanation = #{explanation,jdbcType=VARCHAR},
+      </if>
+      <if test="audio != null" >
+        audio = #{audio,jdbcType=VARCHAR},
+      </if>
+      <if test="properity != null" >
+        properity = #{properity,jdbcType=VARCHAR},
+      </if>
+      <if test="phrase != null" >
+        phrase = #{phrase,jdbcType=VARCHAR},
+      </if>
+      <if test="example != null" >
+        example = #{example,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where word_id = #{wordId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.englishload.po.Words" >
+    update words
+    set wordname = #{wordname,jdbcType=VARCHAR},
+      explanation = #{explanation,jdbcType=VARCHAR},
+      audio = #{audio,jdbcType=VARCHAR},
+      properity = #{properity,jdbcType=VARCHAR},
+      phrase = #{phrase,jdbcType=VARCHAR},
+      example = #{example,jdbcType=LONGVARCHAR}
+    where word_id = #{wordId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.englishload.po.Words" >
+    update words
+    set wordname = #{wordname,jdbcType=VARCHAR},
+      explanation = #{explanation,jdbcType=VARCHAR},
+      audio = #{audio,jdbcType=VARCHAR},
+      properity = #{properity,jdbcType=VARCHAR},
+      phrase = #{phrase,jdbcType=VARCHAR}
+    where word_id = #{wordId,jdbcType=INTEGER}
+  </update>
+</mapper>

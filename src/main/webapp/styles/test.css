@@ -1,0 +1,219 @@
+/*页面基本样式*/
+*{
+    margin:0px;
+    padding:0px;
+}
+body{
+    background:#fff; /*白色*/
+    width:1000px;
+    height: 600px;
+    margin:0 auto;   /*居中*/
+    text-align:center;
+}
+h1{
+    height:34px;
+    line-height:34px;
+    text-indent:28px;   /*缩进*/
+    font-size:16px;
+    font-family:"微软雅黑";
+    font-weight:bold;
+    text-align:left;
+    color:#EEE;
+    background:#008080 ;
+    border-bottom:1px solid #c0c0c0;
+}
+
+/*页面整体布局*/
+
+#content{
+    width:1000px;
+    margin:5px auto;
+    background:#EAEAEA;
+}
+#left{
+    margin:10px 0px 0px 10px;
+    width:200px;
+    height: 580px;
+    float:left;
+    background:#F9F9F4;
+    border:1px solid #C0C0C0;
+}
+#right{
+    margin:10px 10px 0px 0px;
+    width:776px;
+    height: 580px;
+    background:#FFF;
+    float:right;
+    border:1px solid #c0c0c0;
+}
+.clearf{
+    clear:both;
+    height: 10px;
+}
+/*左侧菜单样式*/
+#menu{
+    margin:10px auto;
+}
+#menu a{
+    display:block;
+    height:34px;
+    line-height:34px;
+    text-indent:45px;
+    font-family:"微软雅黑";
+    font-size:14px;
+    font-weight:bold;
+    color:#20b2aa;;
+    text-decoration:none;
+    border-bottom:2px solid #dee;
+}
+#menu a.checked,#menu a:hover{
+    color:#eee;
+    border:1px solid #ff7f00;
+}
+
+/*右侧跨界菜单样式*/
+#manager{
+    float:right;
+    margin:0px 20px;
+}
+
+#manager a{
+    text-decoration:none;
+    color:#eee;
+
+}
+
+#hmenu{
+    position:relative;
+    top:-35px;
+    width:98%;
+    margin:0 auto;
+    line-height:28px;
+}
+#hmenu ul{
+    list-style-type:none;
+    font-size:12px;
+}
+#hmenu ul li{
+    float:right;
+    padding:0px 12px;
+    color:#eee;
+}
+#hmenu li a{
+    color:#0ff;
+    text-decoration:none;
+}
+#hmenu li a:hover{
+    color:#eee;
+}
+/*操作说明样式*/
+.operation{
+    width:98%;
+    text-align:left;
+    margin:0 auto;
+    padding:8px 0px;
+    border-bottom:1px solid #b1648a;
+    font-size:12px;
+    font-weight:bold;
+    color:#20b2aa;
+}
+
+/*操作表单和信息显示样式*/
+.ft{                      /*操作表单或说明信息div*/
+    width:98%;
+    text-align:left;
+    margin:0px auto;
+    padding:8px 0px;
+    border-bottom:1px solid #b1648a;
+    font-size:12px;
+}
+.ft fieldset{               /*表单分组域*/
+    margin:5px 0px;
+    padding:5px 0px;
+    background:#f9f8f4;
+    font-weight:bold;
+}
+.ft table td{               /*表单中表格单元格*/
+    font-size:12px;
+    padding:3px 5px;
+    color:#333;
+    line-height:200%;
+    text-align:justify;
+
+}
+.ft table td.lable{        /*标签类单元格*/
+    text-align:right;
+}
+.ft table td.hint{          /*提示类信息单元格*/
+    color:#ff5555;
+}
+.ft input.text,.ft select{ /*输入文本框和下拉文本框*/
+    font-size:12px;
+    color:#333;
+}
+.ft input.long{            /*较长输入文本框*/
+    width:400px;
+}
+.ft input.button{          /*按钮*/
+    border:none;
+    height:20px;
+    line-height:20px;
+    width:100px;
+    background: no-repeat center center;
+    color:#242;
+    font-weight:bold;
+}
+.ft input.button:hover{    /*鼠标经过按钮*/
+    cursor:pointer;        /*设置鼠标变成手型*/
+    color:#262;
+}
+.ft textarea{             /*文本域*/
+    font-size:12px;
+    color:#333;
+}
+
+/*数据表格样式*/
+.dt{                      /*数据表格类*/
+    margin:5px auto;
+    width:98%;
+    background:#ccc;
+}
+.dt tr th,.dt tr td{      /*数据表格中标题单元格和单元格*/
+    background:#fff;
+    font-size:12px;
+    color:#333;
+    height:22px;
+    line-height:22px;
+    text-align:center;
+}
+
+.dt tr td a{
+    color:#007fff;
+}
+
+.dt tr th{                /*标题单元格*/
+    color:#4a71be;
+    background:repeat-x center center;
+}
+.dt tr td:hover{          /*鼠标经过单元格*/
+    background:#e8eee7;
+}
+.pagenav{
+    position: absolute;
+    left: 600px;
+}
+.pagenav ul li {
+    list-style-type: none;
+    float: left;
+    padding: 3px 8px;
+    line-height: 12px;
+    border: 1px solid #E3E3E3 ;
+}
+.pagenav ul li a{
+    font-size: 12px;
+    color: #00AAFF;
+    text-decoration: none;
+}
+.pagenav ul li a:hover,.pagenav ul li a:checked{
+    color: #0055FF;
+}

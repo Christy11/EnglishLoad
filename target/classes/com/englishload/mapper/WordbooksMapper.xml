@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.englishload.mapper.WordbooksMapper" >
+  <resultMap id="BaseResultMap" type="com.englishload.po.Wordbooks" >
+    <id column="wbook_id" property="wbookId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="wname" property="wname" jdbcType="VARCHAR" />
+    <result column="wexpress" property="wexpress" jdbcType="VARCHAR" />
+    <result column="wdate" property="wdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    wbook_id, user_id, wname, wexpress, wdate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.englishload.po.WordbooksExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wordbooks
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from wordbooks
+    where wbook_id = #{wbookId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wordbooks
+    where wbook_id = #{wbookId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.englishload.po.WordbooksExample" >
+    delete from wordbooks
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.englishload.po.Wordbooks" >
+    insert into wordbooks (wbook_id, user_id, wname, 
+      wexpress, wdate)
+    values (#{wbookId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{wname,jdbcType=VARCHAR}, 
+      #{wexpress,jdbcType=VARCHAR}, #{wdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.englishload.po.Wordbooks" >
+    insert into wordbooks
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wbookId != null" >
+        wbook_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="wname != null" >
+        wname,
+      </if>
+      <if test="wexpress != null" >
+        wexpress,
+      </if>
+      <if test="wdate != null" >
+        wdate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wbookId != null" >
+        #{wbookId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="wname != null" >
+        #{wname,jdbcType=VARCHAR},
+      </if>
+      <if test="wexpress != null" >
+        #{wexpress,jdbcType=VARCHAR},
+      </if>
+      <if test="wdate != null" >
+        #{wdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.englishload.po.WordbooksExample" resultType="java.lang.Integer" >
+    select count(*) from wordbooks
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wordbooks
+    <set >
+      <if test="record.wbookId != null" >
+        wbook_id = #{record.wbookId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.wname != null" >
+        wname = #{record.wname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wexpress != null" >
+        wexpress = #{record.wexpress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wdate != null" >
+        wdate = #{record.wdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wordbooks
+    set wbook_id = #{record.wbookId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      wname = #{record.wname,jdbcType=VARCHAR},
+      wexpress = #{record.wexpress,jdbcType=VARCHAR},
+      wdate = #{record.wdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.englishload.po.Wordbooks" >
+    update wordbooks
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="wname != null" >
+        wname = #{wname,jdbcType=VARCHAR},
+      </if>
+      <if test="wexpress != null" >
+        wexpress = #{wexpress,jdbcType=VARCHAR},
+      </if>
+      <if test="wdate != null" >
+        wdate = #{wdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where wbook_id = #{wbookId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.englishload.po.Wordbooks" >
+    update wordbooks
+    set user_id = #{userId,jdbcType=INTEGER},
+      wname = #{wname,jdbcType=VARCHAR},
+      wexpress = #{wexpress,jdbcType=VARCHAR},
+      wdate = #{wdate,jdbcType=TIMESTAMP}
+    where wbook_id = #{wbookId,jdbcType=INTEGER}
+  </update>
+  <!-- delete by user_id -->
+  <delete id="deleteByUserId" parameterType="java.lang.Integer">
+  delete from wordbooks where user_id =#{userId,jdbcType=INTEGER};
+  </delete>
+</mapper>

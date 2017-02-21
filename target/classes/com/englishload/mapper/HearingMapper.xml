@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.englishload.mapper.HearingMapper" >
+  <resultMap id="BaseResultMap" type="com.englishload.po.Hearing" >
+    <id column="hearing_id" property="hearingId" jdbcType="INTEGER" />
+    <result column="hearingaudio" property="hearingaudio" jdbcType="VARCHAR" />
+    <result column="hearingtitle" property="hearingtitle" jdbcType="VARCHAR" />
+    <result column="hearingintro" property="hearingintro" jdbcType="VARCHAR" />
+    <result column="hearingduration" property="hearingduration" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.englishload.po.HearingWithBLOBs" extends="BaseResultMap" >
+    <result column="hearingeng" property="hearingeng" jdbcType="LONGVARCHAR" />
+    <result column="hearingch" property="hearingch" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    hearing_id, hearingaudio, hearingtitle, hearingintro, hearingduration
+  </sql>
+  <sql id="Blob_Column_List" >
+    hearingeng, hearingch
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.englishload.po.HearingExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from hearing
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.englishload.po.HearingExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from hearing
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from hearing
+    where hearing_id = #{hearingId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from hearing
+    where hearing_id = #{hearingId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.englishload.po.HearingExample" >
+    delete from hearing
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.englishload.po.HearingWithBLOBs" >
+    insert into hearing (hearing_id, hearingaudio, hearingtitle, 
+      hearingintro, hearingduration, hearingeng, 
+      hearingch)
+    values (#{hearingId,jdbcType=INTEGER}, #{hearingaudio,jdbcType=VARCHAR}, #{hearingtitle,jdbcType=VARCHAR}, 
+      #{hearingintro,jdbcType=VARCHAR}, #{hearingduration,jdbcType=INTEGER}, #{hearingeng,jdbcType=LONGVARCHAR}, 
+      #{hearingch,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.englishload.po.HearingWithBLOBs" >
+    insert into hearing
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hearingId != null" >
+        hearing_id,
+      </if>
+      <if test="hearingaudio != null" >
+        hearingaudio,
+      </if>
+      <if test="hearingtitle != null" >
+        hearingtitle,
+      </if>
+      <if test="hearingintro != null" >
+        hearingintro,
+      </if>
+      <if test="hearingduration != null" >
+        hearingduration,
+      </if>
+      <if test="hearingeng != null" >
+        hearingeng,
+      </if>
+      <if test="hearingch != null" >
+        hearingch,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hearingId != null" >
+        #{hearingId,jdbcType=INTEGER},
+      </if>
+      <if test="hearingaudio != null" >
+        #{hearingaudio,jdbcType=VARCHAR},
+      </if>
+      <if test="hearingtitle != null" >
+        #{hearingtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="hearingintro != null" >
+        #{hearingintro,jdbcType=VARCHAR},
+      </if>
+      <if test="hearingduration != null" >
+        #{hearingduration,jdbcType=INTEGER},
+      </if>
+      <if test="hearingeng != null" >
+        #{hearingeng,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="hearingch != null" >
+        #{hearingch,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.englishload.po.HearingExample" resultType="java.lang.Integer" >
+    select count(*) from hearing
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update hearing
+    <set >
+      <if test="record.hearingId != null" >
+        hearing_id = #{record.hearingId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hearingaudio != null" >
+        hearingaudio = #{record.hearingaudio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hearingtitle != null" >
+        hearingtitle = #{record.hearingtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hearingintro != null" >
+        hearingintro = #{record.hearingintro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hearingduration != null" >
+        hearingduration = #{record.hearingduration,jdbcType=INTEGER},
+      </if>
+      <if test="record.hearingeng != null" >
+        hearingeng = #{record.hearingeng,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.hearingch != null" >
+        hearingch = #{record.hearingch,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update hearing
+    set hearing_id = #{record.hearingId,jdbcType=INTEGER},
+      hearingaudio = #{record.hearingaudio,jdbcType=VARCHAR},
+      hearingtitle = #{record.hearingtitle,jdbcType=VARCHAR},
+      hearingintro = #{record.hearingintro,jdbcType=VARCHAR},
+      hearingduration = #{record.hearingduration,jdbcType=INTEGER},
+      hearingeng = #{record.hearingeng,jdbcType=LONGVARCHAR},
+      hearingch = #{record.hearingch,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update hearing
+    set hearing_id = #{record.hearingId,jdbcType=INTEGER},
+      hearingaudio = #{record.hearingaudio,jdbcType=VARCHAR},
+      hearingtitle = #{record.hearingtitle,jdbcType=VARCHAR},
+      hearingintro = #{record.hearingintro,jdbcType=VARCHAR},
+      hearingduration = #{record.hearingduration,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.englishload.po.HearingWithBLOBs" >
+    update hearing
+    <set >
+      <if test="hearingaudio != null" >
+        hearingaudio = #{hearingaudio,jdbcType=VARCHAR},
+      </if>
+      <if test="hearingtitle != null" >
+        hearingtitle = #{hearingtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="hearingintro != null" >
+        hearingintro = #{hearingintro,jdbcType=VARCHAR},
+      </if>
+      <if test="hearingduration != null" >
+        hearingduration = #{hearingduration,jdbcType=INTEGER},
+      </if>
+      <if test="hearingeng != null" >
+        hearingeng = #{hearingeng,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="hearingch != null" >
+        hearingch = #{hearingch,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where hearing_id = #{hearingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.englishload.po.HearingWithBLOBs" >
+    update hearing
+    set hearingaudio = #{hearingaudio,jdbcType=VARCHAR},
+      hearingtitle = #{hearingtitle,jdbcType=VARCHAR},
+      hearingintro = #{hearingintro,jdbcType=VARCHAR},
+      hearingduration = #{hearingduration,jdbcType=INTEGER},
+      hearingeng = #{hearingeng,jdbcType=LONGVARCHAR},
+      hearingch = #{hearingch,jdbcType=LONGVARCHAR}
+    where hearing_id = #{hearingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.englishload.po.Hearing" >
+    update hearing
+    set hearingaudio = #{hearingaudio,jdbcType=VARCHAR},
+      hearingtitle = #{hearingtitle,jdbcType=VARCHAR},
+      hearingintro = #{hearingintro,jdbcType=VARCHAR},
+      hearingduration = #{hearingduration,jdbcType=INTEGER}
+    where hearing_id = #{hearingId,jdbcType=INTEGER}
+  </update>
+</mapper>

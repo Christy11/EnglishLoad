@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.englishload.mapper.GradecategoryHearingMapper" >
+  <resultMap id="BaseResultMap" type="com.englishload.po.GradecategoryHearing" >
+    <id column="gradecategory_hearing_id" property="gradecategoryHearingId" jdbcType="INTEGER" />
+    <result column="grade_id" property="gradeId" jdbcType="INTEGER" />
+    <result column="hearing_id" property="hearingId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    gradecategory_hearing_id, grade_id, hearing_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.englishload.po.GradecategoryHearingExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from gradecategory_hearing
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from gradecategory_hearing
+    where gradecategory_hearing_id = #{gradecategoryHearingId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from gradecategory_hearing
+    where gradecategory_hearing_id = #{gradecategoryHearingId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.englishload.po.GradecategoryHearingExample" >
+    delete from gradecategory_hearing
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.englishload.po.GradecategoryHearing" >
+    insert into gradecategory_hearing (gradecategory_hearing_id, grade_id, 
+      hearing_id)
+    values (#{gradecategoryHearingId,jdbcType=INTEGER}, #{gradeId,jdbcType=INTEGER}, 
+      #{hearingId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.englishload.po.GradecategoryHearing" >
+    insert into gradecategory_hearing
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gradecategoryHearingId != null" >
+        gradecategory_hearing_id,
+      </if>
+      <if test="gradeId != null" >
+        grade_id,
+      </if>
+      <if test="hearingId != null" >
+        hearing_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gradecategoryHearingId != null" >
+        #{gradecategoryHearingId,jdbcType=INTEGER},
+      </if>
+      <if test="gradeId != null" >
+        #{gradeId,jdbcType=INTEGER},
+      </if>
+      <if test="hearingId != null" >
+        #{hearingId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.englishload.po.GradecategoryHearingExample" resultType="java.lang.Integer" >
+    select count(*) from gradecategory_hearing
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update gradecategory_hearing
+    <set >
+      <if test="record.gradecategoryHearingId != null" >
+        gradecategory_hearing_id = #{record.gradecategoryHearingId,jdbcType=INTEGER},
+      </if>
+      <if test="record.gradeId != null" >
+        grade_id = #{record.gradeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hearingId != null" >
+        hearing_id = #{record.hearingId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update gradecategory_hearing
+    set gradecategory_hearing_id = #{record.gradecategoryHearingId,jdbcType=INTEGER},
+      grade_id = #{record.gradeId,jdbcType=INTEGER},
+      hearing_id = #{record.hearingId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.englishload.po.GradecategoryHearing" >
+    update gradecategory_hearing
+    <set >
+      <if test="gradeId != null" >
+        grade_id = #{gradeId,jdbcType=INTEGER},
+      </if>
+      <if test="hearingId != null" >
+        hearing_id = #{hearingId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where gradecategory_hearing_id = #{gradecategoryHearingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.englishload.po.GradecategoryHearing" >
+    update gradecategory_hearing
+    set grade_id = #{gradeId,jdbcType=INTEGER},
+      hearing_id = #{hearingId,jdbcType=INTEGER}
+    where gradecategory_hearing_id = #{gradecategoryHearingId,jdbcType=INTEGER}
+  </update>
+</mapper>
